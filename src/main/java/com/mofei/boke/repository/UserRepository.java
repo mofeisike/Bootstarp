@@ -2,23 +2,19 @@ package com.mofei.boke.repository;
 
 import com.mofei.boke.bean.User;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 /**
- * @Description: 用户的资源接口
+ * description: 编写一个Dao接口来操作实体类对应的数据表(Repository)
+ * 统一接口实现repository.java
  */
-public interface UserRepository {
 
-    //创建或者修改用户
-    User saveOrUpdateUser(User user);
 
-    //删除用户
-    void deleteUser(long id);
+//JpaRepository<T,ID extends Serializable> 可序列化的 传入主键
 
-    //查询用户id
-    User getUserById(long id);
+//继承JpaRepository来完成对数据库的操作
+public interface UserRepository extends JpaRepository<User,Integer>{
 
-    //获取用户列表
-    List<User> listUsers();
 
 }

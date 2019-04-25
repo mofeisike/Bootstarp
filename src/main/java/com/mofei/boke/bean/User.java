@@ -1,5 +1,10 @@
 package com.mofei.boke.bean;
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -7,9 +12,14 @@ import java.io.Serializable;
  * @Description: ${todo}
  * @Date: Create in 2019/4/23 17:02
  */
+
+@Entity
+@Proxy(lazy = false)
 public class User implements Serializable{
 
-    private Long id;
+    @Id
+    @GeneratedValue
+    private int id;
     private String name;
     private String email;
 
@@ -17,17 +27,12 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

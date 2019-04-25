@@ -1,9 +1,8 @@
 package com.mofei.boke.controller;
 
 import com.mofei.boke.bean.User;
-import com.mofei.boke.repository.UserRepository;
+import com.mofei.boke.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,20 +18,20 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserDao userDao;
 
     //查询所有用户
     @GetMapping
     public ModelAndView list(Model model){
-        model.addAttribute("userList",userRepository.listUsers());
+        model.addAttribute("userList", userDao.listUsers());
         model.addAttribute("title","用户管理");
         return new ModelAndView("user/list","userModel",model);
     }
 
     //根据id查询用户
     @GetMapping("{id}")
-    public ModelAndView list(@PathVariable("id") long id, Model model){
-        User user = userRepository.getUserById(id);
+    public ModelAndView list(@PathVariable("id") int id, Model model){
+        User user = userDao.getUserById(id);
         model.addAttribute("user",user);
         model.addAttribute("title","查看用户");
         return new ModelAndView("user/view","userModel",model);
@@ -48,23 +47,22 @@ public class UserController {
 
     @PostMapping
     public ModelAndView saveOrUpdateUser(User user,Model model) {
-        user = userRepository.saveOrUpdateUser(user);
+        user = userDao.saveOrUpdateUser(user);
         model.addAttribute("user",user);
         return new ModelAndView("redirect:/user", "userModel", model);
     }
 
     @GetMapping("/modify/{id}")
-    public ModelAndView modify(@PathVariable("id") Long id ,Model model){
-        User user = userRepository.getUserById(id);
+    public ModelAndView modify(@PathVariable("id") int id ,Model model){
+        User user = userDao.getUserById(id);
         model.addAttribute("user",user);
         model.addAttribute("title","修改用户");
         return new ModelAndView("user/form","userModel",model);
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView delete(@PathVariable("id") long id){
-        userRepository.deleteUser(id);
+    public ModelAndView delete(@PathVariable("id") int id){
+        userDao.deleteUser(id);
         return new ModelAndView("redirect:/user");
     }
-
 }
