@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="~{fragments/header :: header}">
 </head>
 <body>
 
+<div class="container blog-content-container">
+    <h3 th:text="${userModel.title}">原型</h3>
+    <form action="/user" th:action="@{/user}" method="post" th:object="${userModel.user}">
+        <input type="hidden" name="id" th:value="*{id}" class="form-control">
+        名称:
+        <input type="text" name="name" th:value="*{name}" class="form-control">
+        <br>
+        邮箱:
+        <input type="email" name="email" th:value="*{email}" class="form-control">
+        <br>
+        <input type="submit" value="提交" class="btn btn-default">
+    </form>
+</div>
 
-<div th:replace="~{fragments/header :: header}"></div>
-<h3 th:text="${userModel.title}">原型</h3>
 
-<form action="/user" th:action="@{/user}" method="post" th:object="${userModel.user}">
-    <input type="hidden" name="id" th:value="*{id}">
-    名称
-    <input type="text" name="name" th:value="*{name}">
-    <br>
-    邮箱
-    <input type="email" name="email" th:value="*{email}">
-    <br>
-    <input type="submit" value="提交">
-</form>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 

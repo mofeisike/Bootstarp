@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="~{fragments/header :: header}">
 </head>
 <body>
 
-<div th:replace="~{fragments/header :: header}"></div>
-<h3 th:text="${userModel.title}">原型</h3>
 
-<div>
-    <p>ID : <span th:text="${userModel.user.id}"></span></p>
-    <p>Name : <span th:text="${userModel.user.name}"></span></p>
-    <p>Email : <span th:text="${userModel.user.email}"></span></p>
+<div class="container blog-content-container">
+    <h3 th:text="${userModel.title}">原型</h3>
+    <div>
+        <p>ID : <span th:text="${userModel.user.id}"></span></p>
+        <p>Name : <span th:text="${userModel.user.name}"></span></p>
+        <p>Email : <span th:text="${userModel.user.email}"></span></p>
+    </div>
+
+    <div>
+        <a th:href="@{'/user/delete/'+${userModel.user.id}}">删除</a>
+        <a th:href="@{'/user/modify/'+${userModel.user.id}}">修改</a>
+    </div>
 </div>
-
-<div>
-    <a th:href="@{'/user/delete/'+${userModel.user.id}}">删除</a>
-    <a th:href="@{'/user/modify/'+${userModel.user.id}}">修改</a>
-</div>
-
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 
